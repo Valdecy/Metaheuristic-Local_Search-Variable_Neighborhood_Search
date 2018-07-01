@@ -56,9 +56,6 @@ def variable_neighborhood_search(Xdata, city_tour, max_attempts = 20, neighbourh
     best_solution = copy.deepcopy(city_tour)
     while (count < iterations):
         for i in range(0, neighbourhood_size):
-            #solution = [random.sample(range(1, len(city_tour[0])), len(city_tour[0])-2), 1]
-            #solution[0] = solution[0] + [solution[0][0]]
-            #solution[1] = distance_calc(Xdata, route = solution)
             for j in range(0, neighbourhood_size):
                 solution = stochastic_2_opt(Xdata, city_tour = best_solution)
             solution = local_search(Xdata, city_tour = solution, max_attempts = max_attempts, neighbourhood_size = neighbourhood_size )
