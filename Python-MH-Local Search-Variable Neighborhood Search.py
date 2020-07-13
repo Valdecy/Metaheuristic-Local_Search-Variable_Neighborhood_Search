@@ -43,15 +43,10 @@ def seed_function(Xdata):
     return seed
 
 # Function: Build Distance Matrix
-def buid_distance_matrix(coordinates):
-    Xdata = np.zeros((coordinates.shape[0], coordinates.shape[0]))
-    for i in range(0, Xdata.shape[0]):
-        for j in range(0, Xdata.shape[1]):
-            if (i != j):
-                x = coordinates[i,:]
-                y = coordinates[j,:]
-                Xdata[i,j] = euclidean_distance(x, y)        
-    return Xdata
+def build_distance_matrix(coordinates):
+   a = coordinates
+   b = a.reshape(np.prod(a.shape[:-1]), 1, a.shape[-1])
+   return np.sqrt(np.einsum('ijk,ijk->ij',  b - a,  b - a)).squeeze()
 
 # Function: Tour Plot
 def plot_tour_distance_matrix (Xdata, city_tour):
@@ -155,7 +150,7 @@ Y = pd.read_csv('Python-MH-Local Search-Variable Neighborhood Search-Dataset-02.
 Y = Y.values
 
 # Build the Distance Matrix
-X = buid_distance_matrix(Y)
+X = build_distance_matrix(Y)
 
 # Start a Random Seed
 seed = seed_function(X)
